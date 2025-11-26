@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DECIFRA - Plataforma de Matemática</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="name-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>Bem-vindo(a) ao DECIFRA!</h3>
+            <p>Para começar, diga-nos como podemos te chamar. Este será seu @ na plataforma.</p>
+            <input type="text" id="name-input" placeholder="Digite seu nome ou apelido">
+            <button id="save-name-btn" class="btn btn-yellow" style="width:100%; margin-top: 1.5rem;">Entrar</button>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="logo">DECIFRA</div>
+        <nav class="main-nav" id="desktop-nav">
+            <a href="#dashboard" class="nav-link">Dashboard</a>
+            <a href="#conteudo" class="nav-link">Conteúdo</a>
+            <a href="#questoes" class="nav-link">Questões</a>
+            <a href="#minigames" class="nav-link">Minigames</a>
+            <a href="#chatbot" class="nav-link">Chatbot IA</a>
+        </nav>
+        <div class="header-actions">
+            <!-- NOVO: Botão de Alternância de Tema -->
+            <button id="theme-toggle-button" class="header-icon-btn" aria-label="Alternar Tema">
+                <!-- Ícone da Lua (Padrão: Dark Mode) -->
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <!-- Ícone do Sol (Visível no Light Mode) -->
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px; display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+            <button id="notes-button" class="header-icon-btn" aria-label="Anotações"> <img src="src/imgs_icons/open-book.png" alt=""></button>
+            <button id="calculator-button" class="header-icon-btn" aria-label="Calculadora"> <img src="src/imgs_icons/balance-sheet.png"></button>
+            <div class="notification-bell">
+                <button id="notification-button" class="header-icon-btn" aria-label="Notificações"> <img src="src/imgs_icons/notification.png" alt=""></button>
+                <div id="notifications-popup">
+                    <h4>Notificações</h4>
+                    <ul class="notifications-list">
+                        <li class="notification-item unread"><span>🔥</span> Novo desafio de Determinantes!</li>
+                        <li class="notification-item"><span>✅</span> Você dominou a Regra de Sarrus.</li>
+                    </ul>
+                </div>
+            </div>
+            <button id="menu-button" class="header-icon-btn" aria-label="Abrir menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div id="content-area">
+            <section id="dashboard" class="page-content">
+                <h2>Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="card card-profile">
+                        <h3>Seu Perfil</h3>
+                        <p>Bem-vindo(a), <span id="student-name" class="highlight-cyan"></span>!</p>
+                        <p>Nível: <span id="student-level" class="highlight-cyan"></span></p>
+                    </div>
+                    <div class="card card-xp">
+                        <h3>Progresso de XP</h3>
+                        <div class="xp-bar-container">
+                            <!-- O texto fica acima, no fluxo normal -->
+                            <div id="xp-text">0/1000 XP</div>
+                            <!-- A barra de progresso fica abaixo -->
+                            <div class="xp-bar-wrapper">
+                                <div id="xp-bar"></div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="card card-activity">
+                        <h3>Atividades Recentes</h3>
+                        <ul class="activity-list">
+                            <li class="activity-item"><span class="icon">🏎️</span> Jogou a Corrida dos Sistemas.</li>
+                            <li class="activity-item"><span class="icon">💣</span> Venceu o Desafio das Matrizes.</li>
+                            <li class="activity-item"><span class="icon">▶️</span> Assistiu "Introdução a
+                                Determinantes".</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="conteudo" class="page-content hidden">
+                <h2>Nossas Aulas</h2>
+                <div class="video-content-layout">
+                    <div class="video-player-main">
+                        <div class="video-container"><iframe id="main-video-player"
+                                src="https://www.youtube.com/embed/kDr1CdPuVXo?si=2nmskC5PIRe1yocF"  allowfullscreen></iframe></div>
+                        <h3 id="video-title">Introdução a Sistemas Lineares</h3>
+                        <p id="video-description">Aprenda o básico sobre sistemas lineares, suas classificações e como
+                            eles são usados.</p>
+                    </div>
+                    <div class="video-playlist">
+                        <h3>Playlist do Módulo</h3>
+                        <div id="video-list-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="questoes" class="page-content hidden">
+                <h2>Questões Aleatórias</h2>
+                <div class="card">
+                    <div id="question-container"></div>
+                    <div id="feedback-container" class="feedback-box hidden"></div>
+                    <div class="question-actions"><button id="next-question-btn" class="btn btn-yellow"
+                            style="width: 100%;">Próxima Questão</button></div>
+                </div>
+            </section>
+
+            <section id="minigames" class="page-content hidden">
+                <h2>Minigames</h2>
+                <div class="minigame-nav">
+                    <button class="minigame-tab-btn active" data-target="matrix-challenge">Desafio das Matrizes</button>
+                    <button class="minigame-tab-btn" data-target="system-race">Corrida dos Sistemas</button>
+                    <button class="minigame-tab-btn" data-target="trinca-trigonometrica">Trinca Trigonométrica</button> 
+                </div>
+
+                <div id="matrix-challenge" class="minigame-content">
+                    <div class="minesweeper-container">
+                        <div id="welcomeScreen" class="welcome-screen">
+                            <h2 class="minesweeper-h2">🎯 Bem-vindo ao Desafio das Matrizes!</h2>
+                            <p>Enfrente <strong>5 fases</strong> com bombas distribuídas segundo uma <strong>lei de
+                                    formação matemática</strong>.</p><button id="startButton" class="btn btn-yellow">🚀
+                                Iniciar Missão</button>
+                        </div>
+                        <div id="gameContainer" class="game-container" style="display:none;">
+                            <div class="game-info">
+                                <div class="info-card">
+                                    <div class="info-label">Fase</div>
+                                    <div id="currentPhase" class="info-value">1</div>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-label">Progresso</div>
+                                    <div id="progress" class="info-value">0/5</div>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-label">Status</div>
+                                    <div id="gameStatus" class="info-value">Em jogo</div>
+                                </div>
+                            </div>
+                            <div id="hintBox" class="hint-box"><span id="hintText"></span></div>
+                            <div id="gameGrid" class="game-grid"></div>
+                            <div id="statusMessage" class="feedback-box hidden"></div>
+                            <div class="minesweeper-actions"><button id="retryButton" class="btn btn-cyan"
+                                    style="display: none;">🔄 Nova Tentativa</button><button id="nextPhaseButton"
+                                    class="btn btn-yellow" style="display: none;">➡️ Próxima Fase</button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="system-race" class="minigame-content hidden">
+                    <div id="race-start-screen">
+                        <h3>🏎️ Corrida dos Sistemas</h3>
+                        <p>Clique no botão para sortear um sistema 3x3. Resolva-o o mais rápido que puder para ganhar
+                            mais XP!</p>
+                        <button id="generate-system-btn" class="btn btn-purple">Sortear Sistema</button>
+                    </div>
+                    <div id="race-game-screen" class="hidden">
+                        <div class="race-layout">
+                            <div class="race-main">
+                                <div id="race-status" class="race-status-display"></div>
+                                <div id="system-display" class="system-display-box"></div>
+                                <p id="race-timer" class="timer-display">00:00</p>
+                                <div id="race-inputs" class="race-inputs-grid">
+                                    <label>x = <input type="number" id="race-input-x"></label>
+                                    <label>y = <input type="number" id="race-input-y"></label>
+                                    <label>z = <input type="number" id="race-input-z"></label>
+                                </div>
+                                <div id="race-feedback" class="feedback-box hidden"></div>
+                                <div class="race-actions">
+                                    <button id="race-submit-btn" class="btn btn-cyan">Verificar Resposta</button>
+                                    <button id="race-new-btn" class="btn btn-yellow">Sortear Outro</button>
+                                </div>
+                            </div>
+                            <div class="race-notes">
+                                <div class="canvas-toolbar">
+                                    <input type="color" id="color-picker" value="#FFC300" title="Cor do Pincel">
+                                    <input type="range" id="brush-size" min="1" max="10" value="3"
+                                        title="Tamanho do Pincel">
+                                    <button id="eraser-btn" title="Borracha">Eraser</button>
+                                    <button id="clear-canvas-btn" title="Limpar Tudo">Clear</button>
+                                </div>
+                                <canvas id="drawing-canvas"></canvas>
+                                <p class="notes-caption">Use papel e caneta ou este campo de rascunho. Você decide!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="trinca-trigonometrica" class="minigame-content hidden">
+                    <div class="trigonometric-game-container">
+                        <main class="app">
+                            <section class="panel aside">
+                                <div class="header">
+                                    <h1>Trinca Trigonométrica</h1>
+                                    <div class="sub">Arraste as cartas para completar <strong>sen</strong>, <strong>cos</strong> e <strong>tan</strong> do ângulo mostrado. Cada função tem <strong>2 slots</strong>: <em>fórmula</em> e <em>valor</em>.</div>
+                                </div>
+                                <div class="stats">
+                                    <div class="pill">Trincas completas: <strong id="score">0</strong>/3</div>
+                                    <div class="pill">Baralhos: <strong id="round">1</strong></div>
+                                    <div class="pill">Recorde: <strong id="best">0</strong></div>
+                                </div>
+                                <div class="controls">
+                                    <button id="btnShuffle" class="secondary">Embaralhar Cartas ↻</button>
+                                    <button id="btnNew">Novo Baralho ⟳</button>
+                                    <label class="toggle"><input type="checkbox" id="studyMode"/> Modo estudo</label>
+                                </div>
+                                <div id="studyBox" class="cheats" style="display:none">
+                                    <table>
+                                        <thead><tr><th>Ângulo</th><th>sen</th><th>cos</th><th>tan</th></tr></thead>
+                                        <tbody id="cheatBody"></tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        
+                            <section class="panel">
+                                <div class="board">
+                                    <div class="top-area">
+                                        <div class="angleBox"><div class="theta" id="theta">θ = 45°</div></div>
+                                        <div class="dropzone-wrap">
+                                            <div class="dropzone" data-func="sen">
+                                                <h3>sen(θ)</h3>
+                                                <div class="slots">
+                                                    <div class="slot" data-type="formula">Fórmula</div>
+                                                    <div class="slot" data-type="value">Valor</div>
+                                                </div>
+                                            </div>
+                                            <div class="dropzone" data-func="cos">
+                                                <h3>cos(θ)</h3>
+                                                <div class="slots">
+                                                    <div class="slot" data-type="formula">Fórmula</div>
+                                                    <div class="slot" data-type="value">Valor</div>
+                                                </div>
+                                            </div>
+                                            <div class="dropzone" data-func="tan">
+                                                <h3>tan(θ)</h3>
+                                                <div class="slots">
+                                                    <div class="slot" data-type="formula">Fórmula</div>
+                                                    <div class="slot" data-type="value">Valor</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="tray">
+                                        <h4>Cartas (arraste para os slots)</h4>
+                                        <div id="tray" class="tray-grid"></div>
+                                    </div>
+                                </div>
+                            </section>
+                        </main>
+                        
+                        <div id="winModal" class="modal-overlay">
+                            <div class="modal-content">
+                                <h2>Mandou bem! ✨</h2>
+                                <p id="winModalMessage">Você completou sen, cos e tan de 45°.</p>
+                                <div class="modal-buttons">
+                                    <button id="modalBtnClose" class="secondary">OK</button>
+                                    <button id="modalBtnNewGame" class="primary">Jogar Novamente ⟳</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="chatbot" class="page-content hidden">
+                <h2>Converse com nosso assistente de IA</h2>
+                <div class="card">
+                    <div id="ai-chatbot-container">
+                        <div id="chatHistory" class="chat-history">
+                            <div class="message-bubble ai-message">
+                                <p>🤖 Olá! Sou um assistente treinado para tirar dúvidas de matemática. Como posso
+                                    ajudar?</p>
+                            </div>
+                        </div>
+                        <div id="ai-status-message" class="feedback-box hidden" style="margin: 1rem 0 0 0;"></div>
+                        <div class="chat-input-area"><input type="text" id="messageInput"
+                                placeholder="Digite sua pergunta..."><button id="sendButton"
+                                class="btn btn-purple">Enviar</button></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <aside id="notes-panel">
+        <div class="notes-header">
+            <h3>Minhas Anotações</h3><button id="close-notes-button" class="header-icon-btn">✖</button>
+        </div><textarea id="notes-textarea" placeholder="Escreva aqui suas anotações..."></textarea>
+        <div class="notes-footer"><button id="save-notes-btn" class="btn btn-cyan" style="width:100%;">Salvar</button>
+            <p id="save-notes-feedback">Salvo!</p>
+        </div>
+    </aside>
+
+    <aside id="calculator-panel">
+        <div class="calculator-header">
+            <h3>Calculadora</h3>
+            <button id="close-calculator-button" class="header-icon-btn">✖</button>
+        </div>
+        <div class="calculator">
+            <input type="text" disabled id="calc-display">
+            <div class="calc-buttons">
+                <button onclick="insertCalc('7')">7</button>
+                <button onclick="insertCalc('8')">8</button>
+                <button onclick="insertCalc('9')">9</button>
+                <button onclick="insertCalc('/')">/</button>
+                <button onclick="insertCalc('4')">4</button>
+                <button onclick="insertCalc('5')">5</button>
+                <button onclick="insertCalc('6')">6</button>
+                <button onclick="insertCalc('*')">*</button>
+                <button onclick="insertCalc('1')">1</button>
+                <button onclick="insertCalc('2')">2</button>
+                <button onclick="insertCalc('3')">3</button>
+                <button onclick="insertCalc('-')">-</button>
+                <button onclick="insertCalc('0')">0</button>
+                <button onclick="insertCalc('.')">.</button>
+                <button onclick="calcClear()">C</button>
+                <button onclick="calcResult()">=</button>
+                <button onclick="insertCalc('+')" class="full">+</button>
+            </div>
+        </div>
+    </aside>
+
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay hidden">
+        <div id="mobile-nav-container" class="mobile-nav-container">
+            <div class="mobile-nav-header"><button id="close-menu-button" class="header-icon-btn"
+                    aria-label="Fechar menu"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg></button></div>
+            <nav class="main-nav-mobile" id="mobile-nav"><a href="#dashboard" class="nav-link-mobile">Dashboard</a><a
+                    href="#conteudo" class="nav-link-mobile">Conteúdo</a><a href="#questoes"
+                    class="nav-link-mobile">Questões</a><a href="#minigames" class="nav-link-mobile">Minigames</a><a
+                    href="#chatbot" class="nav-link-mobile">Chatbot IA</a></nav>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1493 @@
+/* ===========================
+   🎨 VARIÁVEIS GLOBAIS
+=========================== */
+:root {
+    /* --- DARK MODE (Padrão) --- */
+    --bg-main: #0D1B2A;
+    --bg-secondary: #1B263B;
+    --bg-tertiary: #2a3b52;
+
+    --color-yellow: #FFC300;
+    --color-cyan: #00C49A;
+    --color-purple: #7B2CBF;
+    --color-danger: #ef4444;
+
+    --color-text: #FFFFFF;
+    --color-text-dark: #000000;
+
+    --font-main: 'Space Grotesk', sans-serif;
+
+    /* Variáveis do Trinca Trigonométrica (integradas) */
+    --bg:#0f172a; /* slate-900 */
+    --panel:#111827ee; /* gray-900 */
+    --ink:#e5e7eb; /* gray-200 */
+    --muted:#94a3b8; /* slate-400 */
+    --brand:#22d3ee; /* cyan-400 */
+    --good:#34d399; /* emerald-400 */
+    --bad:#fb7185; /* rose-400 */
+    --card:#111827; /* gray-900 */
+    --card2:#0b1222; /* darker */
+    --accent:#60a5fa; /* blue-400 */
+}
+
+/* ===========================
+   💡 MODO CLARO (Light Mode)
+=========================== */
+.light-mode {
+    /* Fundo e Estrutura */
+    --bg-main: #F4F6F9;       /* Fundo Principal - Branco Suave */
+    --bg-secondary: #FFFFFF;  /* Cards, Painéis - Branco */
+    --bg-tertiary: #E5E7EB;   /* Bordas, Input, Terciário - Cinza Claro */
+    
+    /* Cores de Acentuação */
+    --color-yellow: #FFA500;  /* Amarelo/Laranja Forte */
+    --color-cyan: #008080;    /* Ciano/Teal Escuro */
+    --color-purple: #5A1F8F;  /* Roxo Escuro */
+    
+    /* Texto */
+    --color-text: #1F2937;    /* Texto Principal Escuro */
+    --color-text-dark: #1F2937; /* Texto nos botões claros */
+
+    /* Variáveis do Trinca Trigonométrica para Light Mode */
+    --bg: #f8fafc; /* slate-50 */
+    --panel: #ffffff; /* white */
+    --ink: #1f2937; /* gray-800 */
+    --muted: #64748b; /* slate-600 */
+    --brand: #06b6d4; /* cyan-600 */
+    --good: #059669; /* emerald-600 */
+    --bad: #e11d48; /* rose-600 */
+    --card: #f1f5f9; /* slate-100 */
+    --card2: #e2e8f0; /* slate-200 */
+    --accent: #3b82f6; /* blue-500 */
+}
+
+/* ===========================
+   🔧 RESET
+=========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-main);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ===========================
+   🖱️ SCROLLBAR
+=========================== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb {
+    background: var(--color-purple);
+    border-radius: 10px;
+}
+
+/* Scrollbar para o modo claro */
+.light-mode ::-webkit-scrollbar-track { background: var(--bg-tertiary); }
+.light-mode ::-webkit-scrollbar-thumb { background: var(--color-purple); }
+
+
+/* ===========================
+   📌 HEADER
+=========================== */
+.site-header {
+    background-color: var(--bg-secondary);
+    padding: 0 2rem;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--bg-tertiary);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-yellow);
+}
+
+.main-nav { display: none; }
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-icon-btn {
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* --- Notificações --- */
+.notification-bell { position: relative; }
+
+#notifications-popup {
+    display: none;
+    position: absolute;
+    top: 150%;
+    right: 0;
+    width: 320px;
+    background-color: var(--bg-secondary);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border: 1px solid var(--bg-tertiary);
+}
+
+#notifications-popup h4 {
+    padding: 1rem;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.notifications-list {
+    list-style: none;
+    padding: 0.5rem;
+}
+
+.notification-item {
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.notification-item.unread {
+    background-color: rgba(123, 44, 191, 0.2);
+}
+
+/* ===========================
+   📄 CONTEÚDO PRINCIPAL
+=========================== */
+.main-content { padding: 2rem; }
+
+.page-content h2 {
+    font-size: 1.875rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+/* --- Cards --- */
+.card {
+    background-color: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+}
+
+.card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.highlight-cyan {
+    color: var(--color-cyan);
+    font-weight: 700;
+}
+
+/* --- Dashboard --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* --- Corrigido para Flexbox: Texto acima e Barra abaixo --- */
+.card-xp {
+    /* Define o card como um Flexbox para organizar o conteúdo verticalmente */
+    display: flex;
+    flex-direction: column;
+}
+
+.xp-bar-container {
+    /* Ocupa o restante do espaço após o h3 */
+    flex-grow: 1;
+    display: flex; /* Define o contêiner do XP como Flexbox */
+    flex-direction: column; /* Organiza o texto e a barra verticalmente */
+    justify-content: flex-end; /* Alinha a barra (último elemento) na parte inferior */
+    gap: 5px; /* Espaçamento entre o texto e a barra */
+    padding-bottom: 5px; /* Espaço para o contêiner interno */
+}
+
+/* Novo estilo para o texto de XP (não mais absoluto) */
+#xp-text {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 5px; /* Garante que haja espaço acima da barra */
+    z-index: 2; /* Garante que o texto fique acima de tudo, caso haja sobreposição */
+    color: var(--color-text); /* Cor do texto */
+}
+
+.xp-bar-wrapper {
+    position: relative;
+    background: var(--bg-tertiary); /* Cor de fundo da barra vazia */
+    border-radius: 10px;
+    height: 20px;
+    overflow: hidden;
+    /* Garante que o wrapper da barra ocupe o espaço necessário */
+}
+
+#xp-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-cyan), var(--color-yellow));
+    border: 1px solid var(--color-yellow);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+
+/* --- Atividades --- */
+.activity-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* ===========================
+   🎬 VÍDEOS
+=========================== */
+.video-content-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.video-player-main .video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background-color: #000;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.video-player-main iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-player-main #video-title {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    color: var(--color-yellow);
+}
+
+.video-player-main #video-description {
+    margin-top: 0.5rem;
+    color: #d1d5db;
+}
+
+.light-mode .video-player-main #video-description {
+    color: #4B5563; /* Cinza escuro para contraste no light mode */
+}
+
+/* --- Playlist --- */
+.video-playlist {
+    background-color: var(--bg-secondary);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.video-playlist h3 {
+    margin-bottom: 1rem;
+    color: var(--color-cyan);
+}
+
+.video-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.video-item:hover,
+.video-item.active { background-color: var(--color-purple); }
+
+.video-item img {
+    width: 100px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 0.25rem;
+}
+
+/* ===========================
+   ❓ QUIZ & FEEDBACK
+=========================== */
+.question-option {
+    display: block;
+    padding: 1rem;
+    background-color: var(--bg-main);
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.question-option:hover { background-color: var(--color-purple); }
+
+.question-actions { margin-top: 1.5rem; }
+
+.feedback-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.feedback-correct { background-color: #10b981; }
+.feedback-incorrect { background-color: var(--color-danger); }
+.feedback-info { background-color: #f59e0b; }
+
+/* ===========================
+   🪟 MODAL & NOTAS
+=========================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--bg-tertiary);
+    background-color: var(--bg-main);
+    color: var(--color-text);
+    font-size: 1rem;
+}
+
+/* --- Painel de Notas --- */
+#notes-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    background-color: var(--bg-secondary);
+    z-index: 150;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+#notes-panel.open { transform: translateX(0); }
+
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--bg-tertiary);
+}
+
+#notes-textarea {
+    flex: 1;
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border: none;
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    resize: none;
+}
+
+.notes-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--bg-tertiary);
+}
+
+#save-notes-feedback {
+    font-size: 0.875rem;
+    color: var(--color-cyan);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* ===========================
+   🔘 BOTÕES
+=========================== */
+.hidden { display: none !important; }
+
+.btn {
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+}
+
+.btn:hover:not(:disabled) { transform: translateY(-2px); }
+
+.btn-yellow {
+    background-color: var(--color-yellow);
+    color: var(--color-text-dark);
+}
+
+.btn-cyan {
+    background-color: var(--color-cyan);
+    color: var(--color-text-dark);
+}
+
+.btn-purple {
+    background-color: var(--color-purple);
+    color: var(--color-text);
+}
+
+.btn:disabled {
+    background-color: #4b5563;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+/* ===========================
+   🧮 CALCULADORA LATERAL
+=========================== */
+
+.header-actions img {
+    width: 24px;
+}
+
+
+
+#calculator-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 320px;
+    height: 100%;
+    background-color: var(--bg-secondary);
+    z-index: 150;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+#calculator-panel.open { transform: translateX(0); }
+
+.calculator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-tertiary);
+    padding: 1rem;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+#calc-display {
+    width: 100%;
+    box-sizing: border-box;
+    height: 60px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--bg-tertiary);
+    text-align: right;
+    font-size: 1.25rem;
+    margin: 1rem 0;
+    color: white;
+    padding: 0.5rem;
+}
+
+.light-mode #calc-display {
+    color: var(--color-text); /* Texto escuro no modo claro */
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.calc-buttons button {
+    color: white;
+    background-color: var(--bg-tertiary);
+    border: none;
+    height: 60px;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+.light-mode .calc-buttons button {
+    color: var(--color-text); /* Texto escuro no modo claro */
+}
+
+.calc-buttons button:hover {
+    background-color: var(--bg-hover);
+    cursor: pointer;
+    transition: .4s;
+}
+
+.calc-buttons .full {
+    grid-column: span 4;
+    background-color: var(--color-yellow);
+    color: var(--color-text-dark);
+}
+
+/* ===========================
+   🎮 MINIGAMES
+=========================== */
+/* --- Navegação --- */
+.minigame-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.minigame-tab-btn {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+}
+
+.minigame-tab-btn.active {
+    color: var(--color-yellow);
+    border-bottom-color: var(--color-yellow);
+}
+
+.light-mode .minigame-tab-btn {
+    color: #4B5563; /* Cor do texto normal mais escura no light mode */
+}
+.light-mode .minigame-tab-btn.active {
+    color: var(--color-purple); /* Uso de roxo para destaque no light mode */
+    border-bottom-color: var(--color-purple);
+}
+
+.minigame-content {
+    background-color: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+}
+
+/* --- Desafio das Matrizes (Minesweeper) --- */
+.minesweeper-container .welcome-screen {
+    text-align: center;
+    background: none;
+    padding: 0;
+}
+
+.minesweeper-h2 {
+    color: var(--color-yellow);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.game-container { background: none; padding: 0; }
+
+.game-info {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.info-card {
+    background: var(--bg-tertiary);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    min-width: 100px;
+    text-align: center;
+}
+
+.info-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #9ca3af;
+}
+
+.info-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-cyan);
+}
+
+.hint-box {
+    background: rgba(255, 195, 0, 0.1);
+    border: 1px solid var(--color-yellow);
+    color: var(--color-yellow);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.game-grid {
+    display: grid;
+    gap: 4px;
+    justify-content: center;
+    margin: 1.5rem auto;
+    max-width: fit-content;
+}
+
+.cell {
+    width: 45px;
+    height: 45px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid #4b5563;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.cell:hover {
+    border-color: var(--color-yellow);
+    transform: scale(1.05);
+}
+
+.cell.revealed { background-color: var(--bg-main); cursor: default; }
+.cell.mine { background-color: var(--color-danger); color: white; }
+.cell.safe { 
+    background-color: var(--color-cyan); 
+    color: var(--color-text-dark); /* Texto escuro */
+}
+
+/* --- Corrida dos Sistemas (Game 2) --- */
+#race-start-screen { text-align: center; }
+
+#race-start-screen h3 {
+    color: var(--color-purple);
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.race-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Conteúdo principal (2/3) e Rascunho (1/3) */
+    gap: 2rem;
+}
+
+.race-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--bg-main); /* Destaca a seção principal */
+    width: 100%;
+}
+
+.race-status-display {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-danger);
+    min-height: 2.5rem; /* Evita Cumulative Layout Shift (CLS) */
+}
+
+.system-display-box {
+    background-color: var(--bg-tertiary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-family: monospace;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    min-height: 120px; /* Altura mínima para as 3 equações */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.system-display-box .equation-line {
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
+
+.timer-display {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-cyan);
+    margin: 1rem 0;
+}
+
+.race-inputs-grid {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap; /* Para mobile, inputs podem quebrar a linha */
+}
+
+.race-inputs-grid label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-yellow);
+}
+
+.race-inputs-grid input {
+    width: 80px;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-cyan);
+    background-color: var(--bg-secondary);
+    color: var(--color-text);
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.race-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.race-actions .btn { flex-grow: 1; max-width: 200px; }
+
+/* --- Canvas de Notas (Rascunho) --- */
+.race-notes {
+    background-color: var(--bg-tertiary);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 100%; /* Garantir que ocupe o espaço na grade no desktop */
+    min-height: 400px; 
+}
+
+.canvas-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.canvas-toolbar button {
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
+    background-color: var(--bg-main);
+    color: var(--color-text);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.canvas-toolbar button:hover {
+    background-color: #4b5563;
+}
+
+#drawing-canvas {
+    flex-grow: 1;
+    background-color: #ffffff; /* Fundo branco para desenhar */
+    border-radius: 0.4rem;
+    touch-action: none;
+    width: 100%;
+    min-height: 300px;
+}
+
+.notes-caption {
+    font-size: 0.8rem;
+    text-align: center;
+    color: #9ca3af;
+}
+
+.trigonometric-game-container {
+    --header-h: 70px; /* Altura do header da plataforma */
+    --panel-gap: 20px;
+    --border-radius: 8px;
+
+    height: calc(100vh - var(--header-h) - 4rem); /* Ajusta altura para caber na tela */
+    display: flex;
+    flex-direction: column;
+    color: var(--ink);
+    font-family: var(--font-main);
+    background: var(--bg-main); /* Usa o bg principal da plataforma */
+    border-radius: var(--border-radius);
+    overflow: hidden; /* Garante que elementos filhos não transbordem */
+}
+
+.app {
+    display: flex;
+    flex-grow: 1;
+    gap: var(--panel-gap);
+    padding: var(--panel-gap);
+    background-color: var(--bg); /* Fundo específico do jogo */
+}
+
+.panel {
+    background: var(--panel);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.app .aside {
+    flex: 0 0 280px; /* Largura fixa para o painel lateral */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.app .aside .header {
+    text-align: center;
+}
+
+.app .aside .header h1 {
+    font-size: 1.8rem;
+    color: var(--brand);
+    margin-bottom: 5px;
+}
+
+.app .aside .header .sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+.app .aside .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.app .aside .stats .pill {
+    background: var(--card2);
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+}
+
+.app .aside .stats .pill strong {
+    color: var(--accent);
+    margin-left: 5px;
+}
+
+.app .aside .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: auto; /* Empurra os controles para baixo */
+}
+
+.app .aside .controls button {
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.app .aside .controls button#btnShuffle {
+    background: var(--card);
+    color: var(--ink);
+}
+
+.app .aside .controls button#btnShuffle:hover {
+    background: var(--card2);
+}
+
+.app .aside .controls button#btnNew,
+.app .aside .modal-buttons .primary {
+    background: var(--brand);
+    color: var(--bg); /* Texto escuro no botão de marca */
+}
+
+.app .aside .controls button#btnNew:hover,
+.app .aside .modal-buttons .primary:hover {
+    background: var(--accent);
+}
+
+.app .aside .controls .toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.app .aside .controls .toggle input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--muted);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.app .aside .controls .toggle input[type="checkbox"]:checked {
+    background-color: var(--brand);
+    border-color: var(--brand);
+}
+
+.app .aside .controls .toggle input[type="checkbox"]:checked::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.app .aside .cheats {
+    background: var(--card);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.app .aside .cheats table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.app .aside .cheats th,
+.app .aside .cheats td {
+    padding: 8px 5px;
+    text-align: center;
+    border-bottom: 1px solid var(--card2);
+}
+
+.app .aside .cheats th {
+    color: var(--brand);
+    font-weight: 700;
+}
+
+.app .aside .cheats td {
+    color: var(--ink);
+}
+
+.app .aside .cheats tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Main Board Area */
+.app .panel:not(.aside) {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 20px;
+}
+
+.top-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.angleBox {
+    background: var(--card);
+    padding: 15px 25px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 120px;
+}
+
+.theta {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.dropzone-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.dropzone {
+    background: var(--card);
+    border: 2px dashed var(--muted);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dropzone h3 {
+    color: var(--brand);
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.slots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.slot {
+    background: var(--bg);
+    border: 1px solid var(--muted);
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, border-color 0.2s, outline 0.1s;
+}
+
+.slot.filled {
+    background: var(--good);
+    border-color: var(--good);
+    color: white;
+    font-style: normal;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.tray {
+    flex-grow: 1;
+    background: var(--card2);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tray h4 {
+    color: var(--ink);
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.tray-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 5px; /* Para acomodar a barra de rolagem */
+}
+
+/* Cards */
+.card {
+    background: var(--card);
+    border: 1px solid var(--card2);
+    border-radius: 8px;
+    padding: 10px;
+    cursor: grab;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.1s, box-shadow 0.1s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 70px;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.card.dragging {
+    opacity: 0.5;
+    border-color: var(--brand);
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.5); /* Sombra azul para arrastar */
+}
+
+.card .tag {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.card .val {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+/* Modal de Vitória */
+#winModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#winModal.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#winModal .modal-content {
+    background: var(--panel);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    max-width: 450px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    color: var(--ink);
+}
+
+#winModal .modal-content h2 {
+    font-size: 2rem;
+    color: var(--brand);
+    margin-bottom: 15px;
+}
+
+#winModal .modal-content p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin-bottom: 25px;
+}
+
+#winModal .modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+#winModal .modal-buttons button {
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+#winModal .modal-buttons .secondary {
+    background: var(--card);
+    color: var(--ink);
+}
+
+#winModal .modal-buttons .secondary:hover {
+    background: var(--card2);
+}
+
+/* ===========================
+   🤖 CHATBOT
+=========================== */
+#ai-chatbot-container {
+    position: relative;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.message-bubble { display: flex; max-width: 85%; }
+
+.message-bubble p {
+    padding: 0.75rem 1.25rem;
+    border-radius: 1rem;
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.user-message { align-self: flex-end; }
+.user-message p {
+    background-color: var(--color-cyan);
+    color: var(--color-text-dark);
+    border-bottom-right-radius: 0.25rem;
+}
+
+.ai-message { align-self: flex-start; }
+.ai-message p {
+    background-color: var(--bg-tertiary);
+    color: var(--color-text);
+    border-bottom-left-radius: 0.25rem;
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid var(--bg-tertiary);
+}
+
+#messageInput {
+    flex-grow: 1;
+    background-color: var(--bg-main);
+    border: 1px solid var(--bg-tertiary);
+    color: var(--color-text);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-family: var(--font-main);
+    font-size: 1rem;
+}
+
+#messageInput:focus {
+    outline: none;
+    border-color: var(--color-purple);
+}
+
+/* ===========================
+   📱 RESPONSIVIDADE
+=========================== */
+@media (min-width: 768px) {
+    /* Garante que o menu desktop aparece */
+    .main-nav { display: flex; gap: 1.5rem; }
+
+    .nav-link {
+        color: var(--color-text);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 0;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+    }
+
+    .nav-link:hover { color: var(--color-yellow); }
+    .nav-link.active {
+        color: var(--color-yellow);
+        border-bottom-color: var(--color-yellow);
+    }
+    
+    .light-mode .nav-link:hover { color: var(--color-purple); }
+    .light-mode .nav-link.active {
+        color: var(--color-purple);
+        border-bottom-color: var(--color-purple);
+    }
+
+    /* Garante que o botão de menu mobile some */
+    #menu-button { display: none; }
+}
+
+@media (max-width: 992px) {
+    .race-layout { grid-template-columns: 1fr; }
+
+    .race-notes {
+        margin-top: 1.5rem; /* Ajuste o espaçamento */
+        min-height: 300px;
+        height: auto; /* CORREÇÃO: Remove altura fixa para melhor responsividade */
+    }
+}
+
+@media (max-width: 767px) {
+    .site-header { padding: 0 1rem; }
+    /* Garante que o botão de menu mobile aparece em telas pequenas */
+    #menu-button { display: block; }
+
+    .main-content { padding: 1rem; }
+    .video-content-layout { grid-template-columns: 1fr; }
+
+    .mobile-menu-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0,0,0,0.7);
+        z-index: 100;
+    }
+
+    .mobile-nav-container {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 250px;
+        height: 100%;
+        background-color: var(--bg-secondary);
+        padding: 1rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-nav-container.open { transform: translateX(0); }
+
+    .mobile-nav-header {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 2rem;
+    }
+
+    .main-nav-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-link-mobile {
+        color: var(--color-text);
+        text-decoration: none;
+        font-size: 1.1rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+    }
+
+    .nav-link-mobile.active { background-color: var(--color-purple); }
+
+    @media (max-width: 768px) {
+    .trigonometric-game-container {
+        height: auto; /* Permite que o container cresça em altura no mobile */
+        min-height: calc(100vh - var(--header-h) - 4rem);
+    }
+
+    .app {
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .app .aside {
+        flex: 0 0 auto; /* Remove largura fixa, permite que o conteúdo dite a largura */
+        width: 100%;
+        padding: 15px;
+    }
+
+    .app .aside .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .app .aside .stats {
+        margin-bottom: 15px;
+    }
+
+    .app .aside .controls {
+        margin-top: 15px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .app .aside .controls button {
+        flex-grow: 1; /* Faz os botões ocuparem o espaço disponível */
+        max-width: 180px;
+    }
+    .app .aside .controls .toggle {
+        width: 100%;
+    }
+
+    .app .panel:not(.aside) {
+        padding: 15px;
+    }
+
+    .top-area {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .dropzone-wrap {
+        width: 100%;
+    }
+
+    .dropzone {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .tray {
+        padding: 10px;
+    }
+
+    .tray-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    .card {
+        min-height: 60px;
+    }
+}
+}
