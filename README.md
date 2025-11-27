@@ -1,6 +1,6 @@
 ## DECIFRA - Matemática com Jogos e IA
 
-O DECIFRA é um projeto de site educativo dedicado a transformar o aprendizado de matemática em uma experiência leve, interativa e divertida. Desenvolvido por [Seu Nome], Renato e Estevão, nosso objetivo é combater a aversão à matemática utilizando a gamificação e o poder da Inteligência Artificial para oferecer um suporte de estudo personalizado.
+O DECIFRA é um projeto de site educativo dedicado a transformar o aprendizado de matemática em uma experiência leve, interativa e divertida. Desenvolvido por Pedro Lucas, Renato e Estevão, nosso objetivo é combater a aversão à matemática utilizando a gamificação e o poder da Inteligência Artificial para oferecer um suporte de estudo personalizado.
 
 ## Funcionalidades
 
