@@ -16,7 +16,7 @@ O DECIFRA é um projeto de site educativo dedicado a transformar o aprendizado d
 
 ## Tecnologias Utilizadas
 
-* **Backend:** PHP 8+ (Orientado a Objetos, PDO, MVC).
+* **Backend:** PHP 8+ (Orientado a Objetos, PDO, MVC) e Node.js (para a execução da API do gemini).
 * **Banco de Dados:** MariaDB / MySQL.
 * **Frontend:** HTML5, CSS3 (Responsivo), JavaScript (ES6+).
 
