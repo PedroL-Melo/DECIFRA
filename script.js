@@ -252,10 +252,9 @@ function calcResult() {
 /* =================================================================== */
 class ChatBot {
     constructor() {
-        //Em produção, nunca deixe a chave exposta no front-end assim.
-        this.apiKey = "SUA_API_AQUI"; 
-        this.modelName = "gemini-2.5-flash";
-        
+        // Aponta para o seu servidor local. 
+        // Quando hospedar o backend (ex: no Render), troque essa URL.
+        this.backendUrl = "http://localhost:3000/api/chat";
         this.isWaiting = false;
         this.initializeElements();
         this.bindEvents();
@@ -278,7 +277,6 @@ class ChatBot {
     setLoadingState(isLoading) {
         this.isWaiting = isLoading;
         if (isLoading) {
-            // Verifica se o elemento statusMessage existe antes de tentar alterá-lo
             if(this.statusMessage) {
                 this.statusMessage.textContent = "🤖 Pensando...";
                 this.statusMessage.className = "feedback-box feedback-info";
@@ -301,9 +299,12 @@ class ChatBot {
         messageDiv.className = `message-bubble ${sender}-message`;
         
         const textP = document.createElement("p");
-        // Se for IA, converte quebras de linha em HTML, se for user, texto normal
-        // Aqui mantemos simples como textContent para segurança, igual ao seu original
-        textP.textContent = message; 
+        // Substituir quebras de linha por <br> se for resposta da IA para melhor formatação
+        if (sender === 'ai') {
+             textP.innerHTML = message.replace(/\n/g, '<br>');
+        } else {
+             textP.textContent = message; 
+        }
         
         messageDiv.appendChild(textP);
         this.chatHistory.appendChild(messageDiv);
@@ -319,51 +320,37 @@ class ChatBot {
         this.addMessageToHistory(userText, "user");
         this.setLoadingState(true);
 
-        // 2. Prepara o prompt com o contexto de matemática
-        const contextPrompt = `(Contexto: Você é um assistente de matemática focado em Álgebra Linear, Matrizes, Trigonometria, Estatística e Sistemas Lineares. Responda em português de forma clara e didática.)\n\n${userText}`;
-
-        // 3. URL do Gemini (A chave vai na URL)
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${this.apiKey}`;
-
-        // 4. Faz a chamada Fetch
-        fetch(apiUrl, {
+        // 2. Faz a chamada para o SEU servidor Node, não mais para o Google direto
+        fetch(this.backendUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
-                // Nota: O Gemini não usa 'Authorization: Bearer' quando usa a key na URL
             },
-            body: JSON.stringify({
-                contents: [{ 
-                    parts: [{ text: contextPrompt }] 
-                }]
+            body: JSON.stringify({ 
+                message: userText 
             })
         })
         .then(response => {
             if (!response.ok) {
-                // Se der erro (ex: 400 ou 404), lança exceção para o catch
-                return response.json().then(errData => {
-                    throw new Error(`Erro API (${response.status}): ${JSON.stringify(errData)}`);
-                });
+                throw new Error("Erro de comunicação com o servidor.");
             }
             return response.json();
         })
         .then(data => {
-            // 5. Extrai a resposta da estrutura do Gemini
-            if (data.candidates && data.candidates[0]?.content?.parts[0]) {
-                const aiResponse = data.candidates[0].content.parts[0].text;
-                this.addMessageToHistory(aiResponse, "ai");
+            // 3. O servidor devolve um objeto { reply: "texto..." }
+            if (data.reply) {
+                this.addMessageToHistory(data.reply, "ai");
             } else {
-                throw new Error("A IA não retornou texto válido.");
+                throw new Error("Resposta inválida do servidor.");
             }
         })
         .catch(error => {
             console.error("Erro no ChatBot:", error);
             if(this.statusMessage) {
-                this.statusMessage.textContent = `💥 Erro: Falha ao conectar. Tente novamente.`;
+                this.statusMessage.textContent = `💥 Erro: Verifique se o servidor Node está rodando.`;
                 this.statusMessage.className = "feedback-box feedback-incorrect";
             }
-            // Adiciona mensagem de erro visual no chat também, se preferir
-            this.addMessageToHistory("Desculpe, ocorreu um erro ao processar sua solicitação.", "ai");
+            this.addMessageToHistory("Desculpe, não consegui conectar ao servidor.", "ai");
         })
         .finally(() => {
             this.setLoadingState(false);
